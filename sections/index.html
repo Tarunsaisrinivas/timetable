@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Dropdown Options</title>
+</head>
+<body>
+
+  
+  <label for="year">Year:</label>
+  <select id="year" onchange="enableSection()">
+    <option value="">- Select Year -</option>
+    <option value="1">Year 1</option>
+    <option value="2">Year 2</option>
+    <option value="3">Year 3</option>
+  </select>
+  
+  <label for="section"> Section:</label>
+  <select id="section" disabled onchange="displayImage()">
+    <option value="">- Select Section -</option>
+    <option value="A">Section A</option>
+    <option value="B">Section B</option>
+    <option value="C">Section C</option>
+  </select>
+  
+  <div id="imageContainer">
+    <img src="#" alt="Selected Image" id="selectedImage" >
+  </div>
+
+  <script>
+    var imagePaths = {
+      "1A": "image1A.jpg",
+      "1B": "image1B.jpg",
+      "1C": "image1C.jpg",
+      "2A": "./images/2a.png",
+      "2B": "./images/2b.png",
+      "2C": "image2C.jpg",
+      "3A": "image3A.jpg",
+      "3B": "image3B.jpg",
+      "3C": "image3C.jpg"
+    };
+
+    function enableSection() {
+      var yearSelect = document.getElementById("year");
+      var sectionSelect = document.getElementById("section");
+      
+      if (yearSelect.value !== "") {
+        sectionSelect.disabled = false;
+      } else {
+        sectionSelect.disabled = true;
+        sectionSelect.selectedIndex = 0;
+      }
+      
+      displayImage();
+    }
+    
+    function displayImage() {
+      var yearSelect = document.getElementById("year");
+      var sectionSelect = document.getElementById("section");
+      var imageContainer = document.getElementById("imageContainer");
+      var selectedImage = document.getElementById("selectedImage");
+      
+      var year = yearSelect.value;
+      var section = sectionSelect.value;
+      
+      var imagePath = imagePaths[year + section];
+      
+      if (imagePath) {
+        selectedImage.src = imagePath;
+        selectedImage.style.display = "block";
+      } else {
+        selectedImage.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
